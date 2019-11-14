@@ -17,6 +17,7 @@
 		282FB152237ACCA7000DD1CD /* ConcentrationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282FB151237ACCA7000DD1CD /* ConcentrationUITests.swift */; };
 		282FB160237B145B000DD1CD /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282FB15F237B145B000DD1CD /* Card.swift */; };
 		282FB162237B1468000DD1CD /* Concentration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282FB161237B1468000DD1CD /* Concentration.swift */; };
+		28B7420B237D604500278542 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7420A237D604500278542 /* Theme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		282FB153237ACCA7000DD1CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		282FB15F237B145B000DD1CD /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		282FB161237B1468000DD1CD /* Concentration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Concentration.swift; sourceTree = "<group>"; };
+		28B7420A237D604500278542 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				282FB138237ACCA7000DD1CD /* Assets.xcassets */,
 				282FB13A237ACCA7000DD1CD /* LaunchScreen.storyboard */,
 				282FB13D237ACCA7000DD1CD /* Info.plist */,
+				28B7420A237D604500278542 /* Theme.swift */,
 			);
 			path = Concentration;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				282FB134237ACCA4000DD1CD /* ViewController.swift in Sources */,
 				282FB162237B1468000DD1CD /* Concentration.swift in Sources */,
 				282FB130237ACCA4000DD1CD /* AppDelegate.swift in Sources */,
+				28B7420B237D604500278542 /* Theme.swift in Sources */,
 				282FB132237ACCA4000DD1CD /* SceneDelegate.swift in Sources */,
 				282FB160237B145B000DD1CD /* Card.swift in Sources */,
 			);
