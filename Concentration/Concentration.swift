@@ -11,32 +11,52 @@ import Foundation
 
 class Concentration
 {
-    var cards = [Card] ();
+    private(set) var cards = [Card] ();
     
-    var indexOfOneAndOnlyFaceUpCard: Int?
+    private(set) var flipCount = 0;
     
-    func choseCard(at index: Int) -> Bool {
-        if cards[index].isMatched {
-            return false
-        }
-        if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index {
-            if cards[matchIndex].identifier == cards[index].identifier {
-                cards[matchIndex].isMatched = true
-                cards[index].isMatched = true
-            }
-            cards[index].isFaceUp = true
-            indexOfOneAndOnlyFaceUpCard = nil
-        } else {
+    private var indexOfOneAndOnlyFaceUpCard: Int? {
+        set (newIndex) {
             for flipDownIndex in cards.indices {
-                cards[flipDownIndex].isFaceUp = false
+                if flipDownIndex == newIndex {
+                    flipCount += 1
+                }
+                    
+                cards[flipDownIndex].isFaceUp = flipDownIndex == newIndex
             }
-            cards[index].isFaceUp = true
-            indexOfOneAndOnlyFaceUpCard = index
         }
-        return true
+        get {
+            var foundIndex: Int?
+            for cardIndex in cards.indices {
+                if cards[cardIndex].isFaceUp {
+                    if foundIndex == nil {
+                        foundIndex = cardIndex
+                    } else {
+                        return nil
+                    }
+                }
+            }
+            return foundIndex
+        }
+    }
+    
+    func choseCard(at index: Int) {
+        if !cards[index].isMatched {
+            if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index {
+                if cards[matchIndex] == cards[index] {
+                    cards[matchIndex].isMatched = true
+                    cards[index].isMatched = true
+                }
+                cards[index].isFaceUp = true
+                flipCount += 1
+            } else {
+                indexOfOneAndOnlyFaceUpCard = index
+            }
+        }
     }
     
     init(numberOfPairs: Int) {
+        flipCount = 0;
         for _ in 1...numberOfPairs {
             let card = Card();
             

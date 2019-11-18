@@ -9,11 +9,6 @@
 import UIKit
 
 class ViewController: UIViewController {
-    var flipCount = 0 {
-        didSet {
-            flipCountLabel.text = "Count flips: \(flipCount)"
-        }
-    }
     
     @IBOutlet var flipCountLabel: UILabel!
     
@@ -23,9 +18,7 @@ class ViewController: UIViewController {
 
     @IBAction func tocuhCard(_ sender: UIButton) {
         if let cardNumber = cardButtons.firstIndex(of: sender) {
-            if game.choseCard(at: cardNumber) {
-                flipCount += 1;
-            }
+            game.choseCard(at: cardNumber)
             updateViewFromModel()
         } else {
             print("Elemnt not found")
@@ -38,12 +31,12 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         themes = [];
-        themes.append(Theme(Name: "halloween", backgroundColor: UIColor.black, faceColor: UIColor.white, coverColor:UIColor.systemOrange, emoji: ["👻", "💀", "👽", "🎃", "👹", "🦇", "🕷", "🧛🏻‍♂️"]));
-        themes.append(Theme(Name: "newyear", backgroundColor: UIColor(red:0.49, green:0.84, blue:0.92, alpha:1.0), faceColor: UIColor.white, coverColor: UIColor(red:0.06, green:0.15, blue:0.34, alpha:1.0), emoji: ["🥶", "🎅", "🧣", "❄️", "☃️", "🎉", "🎁", "🎄"]));
-        themes.append(Theme(Name: "animals", backgroundColor: UIColor(red:0.57, green:0.64, blue:0.20, alpha:1.0), faceColor: UIColor.white, coverColor: UIColor(red:0.34, green:0.39, blue:0.16, alpha:1.0), emoji: ["🦄", "🐬", "🦡", "🦍", "🐝", "🐊", "🦖", "🦀"]));
-        themes.append(Theme(Name: "vegetables", backgroundColor: UIColor(red:0.70, green:0.89, blue:0.71, alpha:1.0), faceColor: UIColor.white, coverColor: UIColor(red:0.98, green:0.60, blue:0.52, alpha:1.0), emoji: ["🍄", "🥑", "🍆", "🍅", "🥦", "🥬", "🌽", "🌶"]));
-        themes.append(Theme(Name: "faces", backgroundColor: UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0), faceColor: UIColor.white, coverColor: UIColor(red:0.49, green:0.64, blue:0.66, alpha:1.0), emoji: ["😍", "😎", "🥳", "🙃", "😢", "🤬", "🤤", "🤡"]));
-        themes.append(Theme(Name: "sports", backgroundColor: UIColor(red:0.11, green:0.11, blue:0.17, alpha:1.0), faceColor: UIColor.white, coverColor: UIColor(red:0.24, green:0.74, blue:0.76, alpha:1.0), emoji: ["⚽️", "🏀", "🏈", "⚾️", "🥎", "🎾", "🏉", "🎱"]));
+        themes.append(Theme(Name: "halloween", backgroundColor: UIColor.black, faceColor: UIColor.white, coverColor:UIColor.systemOrange, emoji: "👻💀👽🎃👹🦇🕷🧛🏻‍♂️"));
+        themes.append(Theme(Name: "newyear", backgroundColor: UIColor(red:0.49, green:0.84, blue:0.92, alpha:1.0), faceColor: UIColor.white, coverColor: UIColor(red:0.06, green:0.15, blue:0.34, alpha:1.0), emoji: "🥶🎅🧣❄️☃️🎉🎁🎄"));
+        themes.append(Theme(Name: "animals", backgroundColor: UIColor(red:0.57, green:0.64, blue:0.20, alpha:1.0), faceColor: UIColor.white, coverColor: UIColor(red:0.34, green:0.39, blue:0.16, alpha:1.0), emoji: "🦄🐬🦡🦍🐝🐊🦖🦀"));
+        themes.append(Theme(Name: "vegetables", backgroundColor: UIColor(red:0.70, green:0.89, blue:0.71, alpha:1.0), faceColor: UIColor.white, coverColor: UIColor(red:0.98, green:0.60, blue:0.52, alpha:1.0), emoji: "🍄🥑🍆🍅🥦🥬🌽🌶"));
+        themes.append(Theme(Name: "faces", backgroundColor: UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0), faceColor: UIColor.white, coverColor: UIColor(red:0.49, green:0.64, blue:0.66, alpha:1.0), emoji: "😍😎🥳🙃😢🤬🤤🤡"));
+        themes.append(Theme(Name: "sports", backgroundColor: UIColor(red:0.11, green:0.11, blue:0.17, alpha:1.0), faceColor: UIColor.white, coverColor: UIColor(red:0.24, green:0.74, blue:0.76, alpha:1.0), emoji: "⚽️🏀🏈⚾️🥎🎾🏉🎱"));
         
         setRandomTheme();
     }
@@ -57,7 +50,6 @@ class ViewController: UIViewController {
     
     @IBAction func newGameTouch(_ sender: UIButton) {
         game = Concentration(numberOfPairs: cardButtons.count / 2)
-        flipCount = 0;
         updateViewFromModel()
         
         setRandomTheme();
@@ -65,6 +57,8 @@ class ViewController: UIViewController {
     
     func updateViewFromModel()
     {
+        flipCountLabel.text = "Count flips: \(game.flipCount)"
+        
         for index in cardButtons.indices {
             let button = cardButtons[index]
             let card = game.cards[index]
@@ -78,16 +72,17 @@ class ViewController: UIViewController {
         }
     }
     
-    var emojiChoices = ["👻", "💀", "👽", "🎃", "👹", "🦇", "🕷", "🧛🏻‍♂️"]
-    var emoji = [Int:String]()
+    var emojiChoices = "👻💀👽🎃👹🦇🕷🧛🏻‍♂️"
+    var emoji = [Card:String]()
     
     func emoji(for card: Card) -> String
     {
-        if emoji[card.identifier] == nil, emojiChoices.count > 0 {
-            emoji[card.identifier] = emojiChoices.remove(at: emojiChoices.count.random());
+        if emoji[card] == nil, emojiChoices.count > 0 {
+            let RandomStringIndex = emojiChoices.index(emojiChoices.startIndex, offsetBy: emojiChoices.count.random())
+            emoji[card] = String(emojiChoices.remove(at: RandomStringIndex))
         }
         
-        return emoji[card.identifier] ?? "?";
+        return emoji[card] ?? "?";
     }
     
 }

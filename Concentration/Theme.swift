@@ -15,5 +15,5 @@ struct Theme
     var backgroundColor: UIColor
     var faceColor: UIColor
     var coverColor: UIColor
-    var emoji: [String]
+    var emoji: String
 }
