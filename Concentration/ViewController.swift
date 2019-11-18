@@ -57,7 +57,13 @@ class ViewController: UIViewController {
     
     func updateViewFromModel()
     {
-        flipCountLabel.text = "Count flips: \(game.flipCount)"
+        let attributes: [NSAttributedString.Key: Any] = [
+            .strokeWidth: 5.0,
+            .strokeColor: theme.faceColor,
+        ]
+        let attributedString = NSAttributedString(string: "Count flips: \(game.flipCount)", attributes: attributes);
+        
+        flipCountLabel.attributedText = attributedString
         
         for index in cardButtons.indices {
             let button = cardButtons[index]

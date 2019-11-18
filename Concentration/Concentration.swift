@@ -26,17 +26,7 @@ class Concentration
             }
         }
         get {
-            var foundIndex: Int?
-            for cardIndex in cards.indices {
-                if cards[cardIndex].isFaceUp {
-                    if foundIndex == nil {
-                        foundIndex = cardIndex
-                    } else {
-                        return nil
-                    }
-                }
-            }
-            return foundIndex
+            return cards.indices.filter { cards[$0].isFaceUp }.oneAndOnly;
         }
     }
     
@@ -63,5 +53,11 @@ class Concentration
             cards += [card, card];
         }
         cards.shuffle();
+    }
+}
+
+extension Collection {
+    var oneAndOnly: Element? {
+        return count == 1 ? first : nil;
     }
 }
