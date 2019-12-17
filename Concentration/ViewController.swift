@@ -15,11 +15,15 @@ class ViewController: UIViewController {
     @IBOutlet var cardButtons: [UIButton]!
     
     lazy var game = Concentration(numberOfPairs: cardButtons.count / 2)
-
+    
     @IBAction func tocuhCard(_ sender: UIButton) {
         if let cardNumber = cardButtons.firstIndex(of: sender) {
-            game.choseCard(at: cardNumber)
-            updateViewFromModel()
+            UIView.transition(with: cardButtons[cardNumber]
+                , duration: 0.6, options: [.transitionFlipFromTop], animations: {
+                    [unowned self] in
+                    self.game.choseCard(at: cardNumber)
+                    self.updateViewFromModel()
+            })
         } else {
             print("Elemnt not found")
         }
